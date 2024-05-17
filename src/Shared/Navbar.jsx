@@ -11,7 +11,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-black bg-opacity-30 text-white fixed z-50 top-0 left-0 right-0">
+    <div className="bg-black bg-opacity-35 text-white fixed z-50 top-0 left-0 right-0">
       <div className="navbar max-w-screen-xl mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
