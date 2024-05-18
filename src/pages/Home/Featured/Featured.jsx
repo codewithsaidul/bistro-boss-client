@@ -6,7 +6,7 @@ const Featured = () => {
   return (
 
     <section>
-      <div className="hero min-h-screen featured__item text-white">
+      <div className="hero bg-fixed min-h-screen featured__item text-white">
         <div className="hero-overlay bg-opacity-60"></div>
 
         <div className="max-w-screen-xl mx-auto px-5 md:px-0">
