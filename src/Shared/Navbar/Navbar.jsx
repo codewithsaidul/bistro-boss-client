@@ -45,6 +45,19 @@ const Navbar = () => {
           our menu
         </NavLink>
       </li>
+
+      <li>
+        <NavLink
+          to="/order"
+          className={({ isActive }) =>
+            isActive
+              ? "text-[#EEFF25] text-xl font-extrabold uppercase"
+              : "text-[#FFFFFF] text-xl font-extrabold uppercase"
+          }
+        >
+          our shop
+        </NavLink>
+      </li>
     </>
   );
 
