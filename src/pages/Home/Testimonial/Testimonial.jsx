@@ -31,7 +31,7 @@ const Testimonial = () => {
 
       <Swiper
         navigation={true}
-        loop= {true}
+        
         modules={[Navigation]}
         className="mySwiper max-w-screen-xl mx-auto px-5 md:px-0"
       >
