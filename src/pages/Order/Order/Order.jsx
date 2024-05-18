@@ -5,18 +5,19 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import "./Order.css";
 import useMenu from "../../../hooks/useMenu";
-import FoodCard from "../../../components/FoodCard/FoodCard";
+import OrderTab from "../OrderTab/OrderTab";
+
 
 const Order = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const [menu] = useMenu();
 
-  //   const offered = menu.filter((item) => item.category === "offered");
-  //   const dessert = menu.filter((item) => item.category === "dessert");
-  //   const pizza = menu.filter((item) => item.category === "pizza");
-  const salad = menu.filter((item) => item.category === "salad");
-  //   const soup = menu.filter((item) => item.category === "soup");
+    const drinks = menu.filter((item) => item.category === "drinks");
+    const dessert = menu.filter((item) => item.category === "dessert");
+    const pizza = menu.filter((item) => item.category === "pizza");
+    const salad = menu.filter((item) => item.category === "salad");
+    const soup = menu.filter((item) => item.category === "soup");
 
   return (
     <div>
@@ -39,13 +40,25 @@ const Order = () => {
           </div>
 
           <TabPanel>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10  mt-10 px-4 md:px-0">
-              {salad.map((item) => (
-                <FoodCard key={item._id} item={item} />
-              ))}
-            </div>
+            <OrderTab items={salad}/>
           </TabPanel>
-          <TabPanel></TabPanel>
+
+          <TabPanel>
+            <OrderTab items={pizza}/>
+          </TabPanel>
+
+          <TabPanel>
+            <OrderTab items={soup}/>
+          </TabPanel>
+
+          <TabPanel>
+            <OrderTab items={dessert}/>
+          </TabPanel>
+
+          <TabPanel>
+            <OrderTab items={drinks}/>
+          </TabPanel>
+          
         </Tabs>
       </div>
     </div>
