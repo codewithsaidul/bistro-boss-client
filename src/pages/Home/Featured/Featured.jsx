@@ -13,7 +13,7 @@ const Featured = () => {
 
           <SectionTitle subHeading={"Check it out"} heading="FROM OUR MENU" />
 
-          <div className="flex items-center gap-5">
+          <div className="flex flex-col py-5 md:flex-row md:items-center gap-5">
             <figure>
               <img src={featuredIMG} alt="" />
             </figure>
