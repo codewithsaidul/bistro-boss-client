@@ -1,9 +1,27 @@
-
 import { CiMenuFries } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import userProfile from "../../assets/others/profile.png";
+import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const [dropDown, setDropDown] = useState(false);
 
+  const { user, logOut } = useAuth();
+
+  const handleSignOut = () => {
+    logOut()
+    .then(() => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Sign Out Successfull",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+  }
 
   const navOptions = (
     <>
@@ -12,8 +30,8 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-[#EEFF25] text-xl font-extrabold uppercase"
-              : "text-[#FFFFFF] text-xl font-extrabold uppercase"
+              ? "text-[#EEFF25] text-lg font-extrabold uppercase"
+              : "text-[#FFFFFF] text-lg font-extrabold uppercase"
           }
         >
           Home
@@ -25,8 +43,8 @@ const Navbar = () => {
           to="/contact"
           className={({ isActive }) =>
             isActive
-              ? "text-[#EEFF25] text-xl font-extrabold uppercase"
-              : "text-[#FFFFFF] text-xl font-extrabold uppercase"
+              ? "text-[#EEFF25] text-lg font-extrabold uppercase"
+              : "text-[#FFFFFF] text-lg font-extrabold uppercase"
           }
         >
           contact us
@@ -38,8 +56,8 @@ const Navbar = () => {
           to="/ourMenu"
           className={({ isActive }) =>
             isActive
-              ? "text-[#EEFF25] text-xl font-extrabold uppercase"
-              : "text-[#FFFFFF] text-xl font-extrabold uppercase"
+              ? "text-[#EEFF25] text-lg font-extrabold uppercase"
+              : "text-[#FFFFFF] text-lg font-extrabold uppercase"
           }
         >
           our menu
@@ -48,11 +66,11 @@ const Navbar = () => {
 
       <li>
         <NavLink
-          to="/order/SALAD"
+          to="/order/salad"
           className={({ isActive }) =>
             isActive
-              ? "text-[#EEFF25] text-xl font-extrabold uppercase"
-              : "text-[#FFFFFF] text-xl font-extrabold uppercase"
+              ? "text-[#EEFF25] text-lg font-extrabold uppercase"
+              : "text-[#FFFFFF] text-lg font-extrabold uppercase"
           }
         >
           our shop
@@ -65,19 +83,47 @@ const Navbar = () => {
     <div className="bg-black bg-opacity-40 text-white fixed z-50 top-0 left-0 right-0">
       <div className="navbar max-w-screen-xl mx-auto">
         <div className="navbar-start">
-         
           <a className="btn btn-ghost text-xl">Bistro Boss</a>
         </div>
 
         <div className="navbar-end">
-          
           <div className="hidden lg:flex mr-10">
             <ul className="flex gap-8 px-1">{navOptions}</ul>
           </div>
-          <a className="btn">Button</a>
+
+
+          {user ? (
+            <div>
+              {" "}
+              <div>
+                <figure onClick={() => setDropDown(!dropDown)}>
+                  <img
+                  title={user?.displayName}
+                    className="w-10 h-10 rounded-full"
+                    src={userProfile}
+                    alt="user imge"
+                  />
+                </figure>
+
+                {dropDown && (
+                  <div onClick={handleSignOut} className="absolute bg-base-300 right-2 text-black p-3 top-16">
+                    <button>Log Out</button>
+                  </div>
+                )}
+              </div>{" "}
+            </div>
+          ) : (
+            <Link to="/login" className="btn">
+              Login
+            </Link>
+          )}
 
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="px-2 text-white font-extrabold lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="px-2 text-white font-extrabold lg:hidden"
+            >
               <CiMenuFries size={24} />
             </div>
             <ul

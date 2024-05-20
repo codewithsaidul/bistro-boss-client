@@ -15,7 +15,7 @@ const MenuCategory = ({ items, title, img }) => {
         />
       )}
 
-      <div className="max-w-screen-xl mx-auto px-5 md:px-0 my-20">
+      <div className="max-w-screen-xl mx-auto px-5 2xl:px-0 my-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ">
           {items.map((item) => (
             <MenuItem key={item._id} item={item} />

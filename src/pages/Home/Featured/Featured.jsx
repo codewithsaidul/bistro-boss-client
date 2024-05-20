@@ -9,7 +9,7 @@ const Featured = () => {
       <div className="hero bg-fixed min-h-screen featured__item text-white">
         <div className="hero-overlay bg-opacity-60"></div>
 
-        <div className="max-w-screen-xl mx-auto px-5 md:px-0">
+        <div className="max-w-screen-xl mx-auto px-5 2xl:px-0">
 
           <SectionTitle subHeading={"Check it out"} heading="FROM OUR MENU" />
 

@@ -18,7 +18,7 @@ const Testimonial = () => {
 
   useEffect(() => {
     const getReviews = async () => {
-      const review = await axios("/reviews.json");
+      const review = await axios(`${import.meta.env.VITE_API_URL}/reviews`);
       setReviews(review.data);
     };
 
@@ -33,7 +33,7 @@ const Testimonial = () => {
         navigation={true}
         
         modules={[Navigation]}
-        className="mySwiper max-w-screen-xl mx-auto px-5 md:px-0"
+        className="mySwiper max-w-screen-xl mx-auto px-5 2xl:px-0"
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>

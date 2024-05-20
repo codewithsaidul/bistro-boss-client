@@ -14,6 +14,7 @@ const Order = () => {
   const { category } = useParams();
 
   const [menu] = useMenu();
+  
   const initialIndex = categorys.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
   const drinks = menu.filter((item) => item.category === "drinks");
@@ -33,7 +34,7 @@ const Order = () => {
         description={"Would you like to try a dish?"}
       />
 
-      <div className="max-w-screen-xl mx-auto px-5 md:px-0 mb-10">
+      <div className="max-w-screen-xl mx-auto px-5 2xl:px-0 mb-10">
         <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
           <div>
             <TabList className="my-16 flex flex-wrap justify-center ">
