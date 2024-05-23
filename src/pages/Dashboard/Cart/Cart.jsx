@@ -93,9 +93,9 @@ const Cart = () => {
                       onClick={() => handleDelete(item._id)}
                       className="flex justify-center"
                     >
-                      <p className="p-2 text-white rounded-md flex justify-center w-10 bg-red-500">
+                      <button className="p-2 text-white rounded-md flex justify-center w-10 bg-red-500">
                         <RiDeleteBinLine size={24} />
-                      </p>
+                      </button>
                     </td>
                   </tr>
                 ))}

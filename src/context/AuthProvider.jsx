@@ -10,13 +10,18 @@ import {
   signOut,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+
+
 
 export const AuthContext = createContext(null);
+
 
 const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const  axiosPublic = useAxiosPublic();
 
   const Auth = getAuth(app);
 
@@ -55,15 +60,28 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribed = onAuthStateChanged(Auth, (currentUse) => {
+    const unSubscribed = onAuthStateChanged(Auth, async (currentUser) => {
+      setUser(currentUser);
+
+      if(currentUser) {
+        // Get Token & Store On Client Side
+        const userInfo = { email: currentUser.email}
+        const { data } = await axiosPublic.post('/jwt', userInfo);
+        if(data.token) {
+          localStorage.setItem('Access-Token', data.token)
+        }
+      } else {
+        // Remove Token From Client Side
+        localStorage.removeItem('Access-Token')
+      }
+
       setLoading(false);
-      setUser(currentUse);
     });
 
     return () => {
       unSubscribed();
     };
-  }, [Auth]);
+  }, [Auth, axiosPublic]);
 
   const AuthInfo = {
     user,
