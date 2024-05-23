@@ -1,19 +1,24 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
+import useAxiosSecure from "./useAxiosSecure";
 
 
 const useMenu = () => {
+
+
+    const axiosSecure = useAxiosSecure()
+
     const [menu, setMenu] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
       const getMenu = async () => {
-        const data = await axios(`${import.meta.env.VITE_API_URL}/menu`);
+        const data = await axiosSecure('/menu');
         setMenu(data.data);
         setLoading(false)
       };
   
       getMenu();
-    }, []);
+    }, [menu, axiosSecure]);
 
     return [menu, loading]
 }

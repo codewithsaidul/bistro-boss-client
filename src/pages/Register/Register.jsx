@@ -7,8 +7,12 @@ import { updateProfile } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
+
+  const axiosPublic = useAxiosPublic()
+
   const {
     register,
     handleSubmit,
@@ -26,11 +30,19 @@ const Register = () => {
     const { name, email, password } = data;
 
     createNewUser(email, password)
-    .then((result) => {
+    .then( async (result) => {
       updateProfile(result.user, {
         displayName: name,
       })
       setUser({...user, displayName: name})
+
+      const userInfo = {
+        name: name,
+        email: email
+      }
+
+      const { data } = await axiosPublic.post('/users', userInfo);
+      if (data.insertedId) {
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -40,6 +52,9 @@ const Register = () => {
         });
   
         naviGate('/')
+      }
+
+        
     });
   };
 

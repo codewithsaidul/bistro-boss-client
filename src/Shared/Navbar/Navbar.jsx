@@ -4,24 +4,28 @@ import userProfile from "../../assets/others/profile.png";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const [dropDown, setDropDown] = useState(false);
 
   const { user, logOut } = useAuth();
 
+  const [ cart ] = useCart();
+
+
   const handleSignOut = () => {
-    logOut()
-    .then(() => {
+    logOut().then(() => {
       Swal.fire({
         position: "top-end",
         icon: "success",
         title: "Sign Out Successfull",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
-    })
-  }
+    });
+  };
 
   const navOptions = (
     <>
@@ -86,11 +90,24 @@ const Navbar = () => {
           <a className="btn btn-ghost text-xl">Bistro Boss</a>
         </div>
 
-        <div className="navbar-end">
+        <div className="navbar-center">
           <div className="hidden lg:flex mr-10">
             <ul className="flex gap-8 px-1">{navOptions}</ul>
           </div>
+        </div>
 
+        <div className="navbar-end">
+          <Link to='/dashboard/myCart'>
+            <div className="mr-5 relative">
+              <p>
+                <FaCartShopping className="text-[#EEFF25]" size={24} />
+              </p>
+  
+              <span className="absolute bottom-4 left-3 rounded-full text-white font-bold">
+                {cart.length}
+              </span>
+            </div>
+          </Link>
 
           {user ? (
             <div>
@@ -98,7 +115,7 @@ const Navbar = () => {
               <div>
                 <figure onClick={() => setDropDown(!dropDown)}>
                   <img
-                  title={user?.displayName}
+                    title={user?.displayName}
                     className="w-10 h-10 rounded-full"
                     src={userProfile}
                     alt="user imge"
@@ -106,7 +123,10 @@ const Navbar = () => {
                 </figure>
 
                 {dropDown && (
-                  <div onClick={handleSignOut} className="absolute bg-base-300 right-2 text-black p-3 top-16">
+                  <div
+                    onClick={handleSignOut}
+                    className="absolute bg-base-300 right-2 text-black p-3 top-16"
+                  >
                     <button>Log Out</button>
                   </div>
                 )}

@@ -11,10 +11,12 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
 
 
+  const axiosPublic = useAxiosPublic();
 
   const location = useLocation();
 
@@ -62,7 +64,18 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     googleSignIn()
-    .then(() => {
+    .then( async(result) => {
+      const userInfo = {
+        name: result?.user?.displayName,
+        email: result?.user?.email
+      }
+
+     try {
+      await axiosPublic.post('/users', userInfo);
+      
+     } catch (err) {
+      console.log(err.message)
+     }
       Swal.fire({
         position: "top-end",
         icon: "success",
