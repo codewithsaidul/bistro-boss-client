@@ -5,6 +5,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useMenu from "../../../hooks/useMenu";
 import { FaEdit } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const ManageItems = () => {
@@ -90,13 +91,12 @@ const ManageItems = () => {
 
 
                 
-                  <td
-                    onClick={() => handleDelete(item._id)}
-                    
-                  >
-                    <button className="p-2 text-white rounded-md flex justify-center w-10 bg-[#D1A054]">
-                      <FaEdit size={24} />
-                    </button>
+                  <td>
+                    <Link to={`/dashboard/updateItem/${item._id}`}>
+                      <button className="p-2 text-white rounded-md flex justify-center w-10 bg-[#D1A054]">
+                        <FaEdit size={24} />
+                      </button>
+                    </Link>
                   </td>
 
 
