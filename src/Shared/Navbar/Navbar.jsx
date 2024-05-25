@@ -6,14 +6,16 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaCartShopping } from "react-icons/fa6";
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Navbar = () => {
   const [dropDown, setDropDown] = useState(false);
 
   const { user, logOut } = useAuth();
 
-  const [ cart ] = useCart();
+  const [cart] = useCart();
 
+  const [isAdmin] = useAdmin();
 
   const handleSignOut = () => {
     logOut().then(() => {
@@ -87,6 +89,22 @@ const Navbar = () => {
     <div className="bg-black bg-opacity-40 text-white fixed z-50 top-0 left-0 right-0">
       <div className="navbar max-w-screen-xl mx-auto">
         <div className="navbar-start">
+          <div className="dropdown">
+            <div
+              tabIndex={0}
+              role="button"
+              className="px-2 text-white font-extrabold lg:hidden"
+            >
+              <CiMenuFries size={24} />
+            </div>
+            <ul
+              tabIndex={0}
+              className="right-0 text-center dropdown-content mt-3 z-[1] p-5 shadow bg-black bg-opacity-50 rounded-box w-52"
+            >
+              {navOptions}
+            </ul>
+          </div>
+
           <a className="btn btn-ghost text-xl">Bistro Boss</a>
         </div>
 
@@ -97,17 +115,25 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <Link to='/dashboard/myCart'>
-            <div className="mr-5 relative">
-              <p>
-                <FaCartShopping className="text-[#EEFF25]" size={24} />
-              </p>
-  
-              <span className="absolute bottom-4 left-3 rounded-full text-white font-bold">
-                {cart.length}
-              </span>
-            </div>
-          </Link>
+          {isAdmin ? (
+            <Link to="/dashboard/allUsers">
+                <button className="text-xl font-bold text-white mr-5">
+                    Dashboard
+                </button>
+            </Link>
+          ) : (
+            <Link to="/dashboard/myCart">
+              <div className="mr-5 relative">
+                <p>
+                  <FaCartShopping className="text-[#EEFF25]" size={24} />
+                </p>
+
+                <span className="absolute bottom-4 left-3 rounded-full text-white font-bold">
+                  {cart.length}
+                </span>
+              </div>
+            </Link>
+          )}
 
           {user ? (
             <div>
@@ -137,22 +163,6 @@ const Navbar = () => {
               Login
             </Link>
           )}
-
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="px-2 text-white font-extrabold lg:hidden"
-            >
-              <CiMenuFries size={24} />
-            </div>
-            <ul
-              tabIndex={0}
-              className="right-0 text-center dropdown-content mt-3 z-[1] p-5 shadow bg-black bg-opacity-50 rounded-box w-52"
-            >
-              {navOptions}
-            </ul>
-          </div>
         </div>
       </div>
     </div>

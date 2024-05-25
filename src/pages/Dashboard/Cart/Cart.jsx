@@ -47,7 +47,7 @@ const Cart = () => {
   return (
     <div>
       <div className="mt-10">
-        <SectionTitle subHeading={"My Car"} heading={"WANNA ADD MORE?"} />
+        <SectionTitle subHeading={"My Cart"} heading={"WANNA ADD MORE?"} />
       </div>
 
       <div className="w-[90%] mx-auto shadow-lg p-10">
